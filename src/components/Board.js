@@ -1,6 +1,7 @@
 import React from 'react';
 import {Link, Redirect} from "react-router-dom"
 import Card from "./Card"
+import '../css/board.css'
 class Board extends React.Component {
     state = {
     
@@ -11,6 +12,33 @@ class Board extends React.Component {
         //data is a boards data
         
 
+    }
+    handleTitleSubmit =(event)=>{
+        event.preventDefault();
+        console.log(this.state);
+        this.props.updateBoardHome(this.state.formId,this.state.title,"updateTitle")
+        
+    }
+    handleDescSubmit =(event)=>{
+        event.preventDefault();
+        console.log(this.state);
+        this.props.updateBoardHome(this.state.formId,this.state.desc,"updateDesc")
+        
+    }
+    handleChange=(e,id,type)=>{
+        
+        if (type == "title"){
+            this.setState({
+                formId:id,
+                title:e.target.value,
+            })
+        }
+        else if(type == "desc"){
+            this.setState({
+                formId:id,
+                desc:e.target.value,
+            })
+        }
     }
     applyUpdate = (cardData) =>{
         //get cardData
@@ -32,6 +60,10 @@ class Board extends React.Component {
                 id:copyData.cards.length+1,
                 title:"new-card-title",
                 texts:[
+                    {
+                        id:0,
+                        text:""
+                    },
                     {
                         id:1,
                         text:"new-card text-1"
@@ -73,14 +105,35 @@ class Board extends React.Component {
             })
             return (
                 <div>
-                    <Link to="/"> <h3> Home </h3></Link>
-                    <div className="container">
-                        <h1 className="center-align">{this.state.data.title}</h1>
-                        <ul className="row card-row">
+                    <div className="row">
+                        <Link to="/"> <i class="back medium material-icons">arrow_back</i> </Link>
+                    </div>
+
+                    <div className="card-list-container">
+
+                        <form className="row card-add-container" onSubmit={this.handleTitleSubmit}>
+                            <div className="my-input-field">
+                                <input onChange={(e)=>{this.handleChange(e,this.state.id,"title")}} id={this.state.inputFieldId} type="text" placeholder={this.state.data.title} className="board-title" autoComplete="off" />
+                                    
+                            </div>
+                        </form>
+                                
+                            
+                        <form className="row card-add-container" onSubmit={this.handleDescSubmit}>
+                            <div className="my-input-field">
+                                <input onChange={(e)=>{this.handleChange(e,this.state.id,"desc")}} id={this.state.inputFieldId} type="text" placeholder={this.state.data.desc} className="board-desc" autoComplete="off" />
+                                    
+                            </div>
+                        </form>
+
+
+                        <ul className="row ">
                             {cardList} 
-                            <button className="button" onClick={()=>{ this.addCard() }}>
-                                Add Card
-                            </button> 
+                            <div className="card valign-wrapper add-card-button col s3" onClick={()=>{ this.addCard() }}>
+                                <div className="add-card-text">Add Card</div>
+                                
+                                <i className="icon material-icons add-card-text ">add</i>
+                            </div> 
                         </ul>
                     </div>
                     

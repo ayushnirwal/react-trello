@@ -1,0 +1,14 @@
+.back{
+    color: crimson;
+}
+.card-list-container{
+    margin: 0 3%;
+}
+.add-card-button{
+    height: 300px;
+}
+.add-card-text{
+    width: 100%;
+    font-size: 2rem;
+    text-align: center;
+}

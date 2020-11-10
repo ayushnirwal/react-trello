@@ -6,7 +6,56 @@ class Card extends React.Component {
     state = { 
         data:this.props.data,
         value:"",
-        inputFieldId : String("Add_text")+this.props.data.id
+        inputFieldTextId : String("Add_text")+this.props.data.id
+        
+    }
+    
+    handleTitleChange =(e)=>{
+        this.setState({
+            
+            newTitle:e.target.value
+        })
+        
+    }
+    handleTitleSubmit=(e)=>{
+        e.preventDefault();
+        let copyData = this.state.data;
+        copyData.title = this.state.newTitle;
+        this.setState({
+            ...this.state,
+            data:copyData,
+        })
+        this.props.updateBoard(copyData);
+    }
+    handleTextChange =(e,id)=>{
+        this.setState({
+            
+            newText:e.target.value,
+            newTextId:id
+        })
+        
+    }
+    handleTextSubmit=(e)=>{
+        e.preventDefault();
+        let copyData = this.state.data;
+        
+    
+        
+        copyData.texts=copyData.texts.map((text)=>{
+            if(text.id != this.state.newTextId){
+                return text
+            }
+            else{
+                return({
+                    id:this.state.newTextId,
+                    text:this.state.newText
+                })
+            }
+        })
+        this.setState({
+            data:copyData,
+        })
+        this.props.updateBoard(copyData);
         
     }
     handleChange = (event) =>{
@@ -21,19 +70,19 @@ class Card extends React.Component {
         event.preventDefault();
         
         let copyData = this.state.data;
+        console.log(copyData);
         let [lastText] = copyData.texts.slice(-1)
         
         copyData.texts.push({
-            id:lastText.id+1,
+            id:(lastText.id+1 )|| 0,
             text:this.state.value,
         });
         this.setState({
             data:copyData,
         })
         this.props.updateBoard(copyData);
-        let ele=document.getElementById(this.state.inputFieldId);
-
         
+        let ele=document.getElementById(this.state.inputFieldTextId);
         ele.value="";
         
     
@@ -92,21 +141,30 @@ class Card extends React.Component {
         if (len!=0){
             
             textList= this.state.data.texts.map((text)=>{
-                //different id for different dropdowns is necessary
-                //id 0 is for empty text(which is not shown) 
-                //needed for materialize not to break (there should be atleast one text present)
+                
                 const dropdownID= "dropdown"+String(this.state.data.id)+String(text.id);
                 if(text.id!=0)
                     return(
                         <li key={text.id} id ="drop-down-container" className="card-text-container row">
-                            <p className="card-text col s10">{text.text}</p>
                             
-                            <i onClick={()=>{this.showOptions(dropdownID)}} className="material-icons col s2 more-options">more_horiz</i>
-                            <div id={dropdownID} className ="options-container">
-                                <a className="options" onClick={()=>{this.delText(text.id)}}>Delete</a>
-                                <br/>
+                            <form className="card-add-container" onSubmit={this.handleTextSubmit}>
+                                <div className="text-input">
+
+                                    <input onChange={(e)=>{this.handleTextChange(e,text.id)}} type="text" placeholder={text.text} className="card-text" autoComplete="off" />
+                                    <i onClick={()=>{this.showOptions(dropdownID)}} className="material-icons more-options">more_horiz</i>
+                                    <div id={dropdownID} className ="options-container">
+                                        <a className="options" onClick={()=>{this.delText(text.id)}}>Delete</a>
+                                        <br/>
+
+                                    </div>
+                                    
+                                </div>
+
                                 
-                            </div>
+                            </form>
+
+                            
+                            
                             
                             
                         </li>
@@ -121,16 +179,24 @@ class Card extends React.Component {
             <div className="card">
                 {/* card-title is a class in materialize-css therefore custom-card-title is used */}
                 <div className="card-icon-container"  onClick={()=>{this.delCard(this.state.data.id)}}>
-                                <i className="icon material-icons">close</i>
-                            </div>
-                <h2 className="center-align custom-card-title">{this.state.data.title}</h2>
+                        <i className="icon material-icons">close</i>
+                </div>
+
+                <form className="row card-add-container" onSubmit={this.handleTitleSubmit}>
+                    <div className="my-input-field">
+
+                        <input onChange={(e)=>{this.handleTitleChange(e,this.state.data.id)}} id={this.state.inputFieldId} type="text" placeholder={this.state.data.title} className="board-title" autoComplete="off" />
+                                    
+                    </div>
+                </form>
+
                 <ul>
                     {textList}
                     
                     <form className="row card-add-container" onSubmit={this.handleSubmit}>
                     <div className="input-field">
-                        <input onChange={(e)=>{this.handleChange(e)}} id={this.state.inputFieldId} type="text" className="validate" autoComplete="off" />
-                        <label htmlFor={this.state.inputFieldId}>AddText</label>
+                        <input id={this.state.inputFieldTextId} onChange={(e)=>{this.handleChange(e)}}  type="text"  autoComplete="off" />
+                        <label htmlFor={this.state.inputFieldTextId}>Add Text</label>
                     </div>
                     </form>
 
