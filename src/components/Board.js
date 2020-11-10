@@ -73,7 +73,7 @@ class Board extends React.Component {
             })
             return (
                 <div>
-                    <Link to="/"> Home </Link>
+                    <Link to="/"> <h3> Home </h3></Link>
                     <div className="container">
                         <h1 className="center-align">{this.state.data.title}</h1>
                         <ul className="row card-row">

@@ -18,6 +18,10 @@ class Main extends React.Component {
                         title:"card-title1",
                         texts:[
                             {
+                                id:0,
+                                text:"0"
+                            },
+                            {
                                 id:1,
                                 text:"card-1 text-1"
                             },
@@ -31,6 +35,10 @@ class Main extends React.Component {
                         id:2,
                         title:"card-title2",
                         texts:[
+                            {
+                                id:0,
+                                text:"0"
+                            },
                             {
                                 id:1,
                                 text:"card-2 text-1"
@@ -53,6 +61,10 @@ class Main extends React.Component {
                         title:"card-title1",
                         texts:[
                             {
+                                id:0,
+                                text:"0"
+                            },
+                            {
                                 id:1,
                                 text:"card-1 text-1"
                             },
@@ -66,6 +78,11 @@ class Main extends React.Component {
                         id:2,
                         title:"card-title2",
                         texts:[
+                            {
+                                id:0,
+                                text:"0"
+                            },
+
                             {
                                 id:1,
                                 text:"card-2 text-1"

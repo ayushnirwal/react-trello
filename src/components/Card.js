@@ -5,7 +5,8 @@ import '../css/card.css'
 class Card extends React.Component {
     state = { 
         data:this.props.data,
-        value:""
+        value:"",
+        inputFieldId : String("Add_text")+this.props.data.id
         
     }
     handleChange = (event) =>{
@@ -20,7 +21,8 @@ class Card extends React.Component {
         event.preventDefault();
         
         let copyData = this.state.data;
-        const [lastText] = copyData.texts.slice(-1)
+        let [lastText] = copyData.texts.slice(-1)
+        
         copyData.texts.push({
             id:lastText.id+1,
             text:this.state.value,
@@ -29,7 +31,9 @@ class Card extends React.Component {
             data:copyData,
         })
         this.props.updateBoard(copyData);
-        let ele=document.getElementById("Add_text");
+        let ele=document.getElementById(this.state.inputFieldId);
+
+        
         ele.value="";
         
     
@@ -60,6 +64,7 @@ class Card extends React.Component {
         }
         
         let ele = document.getElementById(dropdownID);
+        
         ele.classList.toggle("show");
     }
     delCard = (cardId)=>{
@@ -111,7 +116,7 @@ class Card extends React.Component {
         
         
 
-
+        
         return (
             <div className="card">
                 {/* card-title is a class in materialize-css therefore custom-card-title is used */}
@@ -124,8 +129,8 @@ class Card extends React.Component {
                     
                     <form className="row card-add-container" onSubmit={this.handleSubmit}>
                     <div className="input-field">
-                        <input onChange={(e)=>{this.handleChange(e)}} id="Add_text" type="text" className="validate" autoComplete="off" />
-                        <label htmlFor="Add_text">AddText</label>
+                        <input onChange={(e)=>{this.handleChange(e)}} id={this.state.inputFieldId} type="text" className="validate" autoComplete="off" />
+                        <label htmlFor={this.state.inputFieldId}>AddText</label>
                     </div>
                     </form>
 
