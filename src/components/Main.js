@@ -6,7 +6,8 @@ import {BrowserRouter as Router,Route,Switch} from 'react-router-dom'
 import store from 'store'
 import 'materialize-css'
 
-const forceNewData = true;
+// false to enable offline caching
+const forceNewData = false;
 
 
 

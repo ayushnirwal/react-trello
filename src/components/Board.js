@@ -111,7 +111,7 @@ class Board extends React.Component {
             cardList = this.state.data.cards.map((cardData)=>{
             
                 return(
-                    <li key = {cardData.id} className="col s3">
+                    <li key = {cardData.id} className="col s12 m6 l4">
                         <Card theme = {theme} delCard ={(id)=>{this.delCard(id)}} updateBoard={(Data)=>{ this.applyUpdate(Data) }}  data={cardData} />
                     </li>
                 )
@@ -142,7 +142,7 @@ class Board extends React.Component {
 
                         <ul className="row ">
                             {cardList} 
-                            <div  style={{backgroundColor:cardColor}} className="card valign-wrapper add-card-button col s3" onClick={()=>{ this.addCard() }}>
+                            <div  style={{backgroundColor:cardColor}} className="card valign-wrapper add-card-button col s12 m6 l4" onClick={()=>{ this.addCard() }}>
                                 <div style={{color:iconColor}} className="add-card-text">Add Card</div>
                                 
                                 <i className="icon material-icons add-card-text ">add</i>

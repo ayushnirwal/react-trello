@@ -52,7 +52,9 @@ class Home extends React.Component {
         textColor,
         borderColor} = theme;
 
-        
+        const style={
+            
+        }
 
         
         const BoardList = this.props.data.map((board)=>{
@@ -61,14 +63,14 @@ class Home extends React.Component {
             
             const url = "/board/"+String(board.id);
             return(
-                <li key = {board.id} className="board-list-element container col s6">
+                <li key = {board.id} className="board-list-element container col s12 l6">
                     <div style= {{backgroundColor:cardColor}} className="card">
                        
                         <div className="icon-container" >
                             <i onClick={()=>{this.props.delBoard(board.id)}} style={{color:iconColor}} className="icon material-icons">close</i>
                         </div>
                            
-                            
+                        <div className="container">
                             <form className="row card-add-container" onSubmit={this.handleTitleSubmit}>
                                 <div className="my-input-field">
                                     <input onChange={(e)=>{this.handleChange(e,board.id,"title")}} style={{color:boardTitleColor}} type="text" placeholder={board.title} className="board-title" autoComplete="off" />
@@ -83,6 +85,7 @@ class Home extends React.Component {
                                     
                                 </div>
                             </form>
+                        </div>
 
 
                         <Link className="center-align" to = {url}> 
@@ -98,16 +101,16 @@ class Home extends React.Component {
             <div className="container">
                 <div className="theme-menu row">
                 
-                    <p className="col s6 center-align">
+                    <p className="col s6 l6 center-align">
                     <label>
                         <input onClick={(e)=>{this.themeChange(0)}} name="group1" value={0} type="radio" defaultChecked={themeSelected == 0} />
-                        <span>{themeNameList[0]}</span>
+                        <span style={{color:iconColor,fontSize:'2rem'}}>{themeNameList[0]}</span>
                     </label>
                     </p>
-                    <p className="col s6 center-align">
+                    <p className="col s6 l6 center-align">
                     <label>
                         <input onClick={(e)=>{this.themeChange(1)}} name="group1" value={1} type="radio" defaultChecked={themeSelected == 1} />
-                        <span>{themeNameList[1]}</span>
+                        <span style={{color:iconColor,fontSize:'2rem'}}>{themeNameList[1]}</span>
                     </label>
                     </p>
                 
@@ -117,7 +120,7 @@ class Home extends React.Component {
                 <ul className="board-list-container row">
                     {BoardList}
                     <li>
-                        <div className="board-list-element container col s6">
+                        <div className="board-list-element container col s12 l6">
                             <div style= {{backgroundColor:cardColor}} className="card" onClick={()=>{this.props.addBoard()}}>
                                 <h1 style={{color:iconColor}} className="center-align board-title"> Add board </h1>
                                 <p className="center-align board-desc"> <i className="icon material-icons">add</i> </p>

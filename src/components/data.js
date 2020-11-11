@@ -92,27 +92,27 @@ const initialData =()=>{
             }
         ],
         theme:{
-            selected:0,
+            selected:1,
             availableThemes:[
                 {
                     
-                    name:"fancy-name-1",
-                    mainBackgroundColor:"#370957",
+                    name:"Theme 1",
+                    mainBackgroundColor:"#fff3e2",
                     boardTitleColor:"#3abda3",
                     boardDescColor:"#3abda3",
-                    cardColor:"#112c57",
-                    iconColor:"#b58126",
+                    cardColor:"#ebcfc4",
+                    iconColor:"#706897",
                     textColor:"#3abda3",
-                    borderColor:"#777",
+                    borderColor:"#706897",
 
                 },
                 {
                     
-                    name:"fancy-name-2",
-                    mainBackgroundColor:"#f3eac2",
+                    name:"Theme 2",
+                    mainBackgroundColor:"#1c2b2d",
                     boardTitleColor:"#3abda3",
                     boardDescColor:"#3abda3",
-                    cardColor:"#f5b461",
+                    cardColor:"#e6d5b8",
                     iconColor:"#b58126",
                     textColor:"#3abda3",
                     borderColor:"#777",

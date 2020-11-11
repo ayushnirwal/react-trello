@@ -187,7 +187,7 @@ class Card extends React.Component {
 
         
         return (
-            <div style={{backgroundColor:cardColor}} className="card">
+            <div style={{backgroundColor:cardColor}} className="card card-padding">
                 {/* card-title is a class in materialize-css therefore custom-card-title is used */}
                 <div className="card-icon-container"  onClick={()=>{this.delCard(this.state.data.id)}}>
                         <i style={{color:iconColor}} className="icon material-icons">close</i>
@@ -201,7 +201,7 @@ class Card extends React.Component {
                     </div>
                 </form>
 
-                <ul>
+                <ul className="container">
                     {textList}
                     
                     <form className="row card-add-container" onSubmit={this.handleSubmit}>
