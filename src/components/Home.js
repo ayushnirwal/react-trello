@@ -39,6 +39,12 @@ class Home extends React.Component {
         
         this.props.changeTheme(e)
     } 
+    goClick = ()=>{
+        if (this.state.title !=undefined)
+            this.props.updateBoardHome(this.state.id,this.state.title,"updateTitle")
+        if (this.state.desc !=undefined)
+            this.props.updateBoardHome(this.state.id,this.state.desc,"updateDesc")
+    }
     render() {
         const themeNameList = this.props.theme.availableThemes.map((theme)=> theme.name );
         const themeSelected = this.props.theme.selected;
@@ -88,7 +94,7 @@ class Home extends React.Component {
                         </div>
 
 
-                        <Link className="center-align" to = {url}> 
+                        <Link onClick={()=>{this.goClick()}}className="center-align" to = {url}> 
                             <p style={{color:iconColor}} className="center-align">Go To board <i style={{color:iconColor}} className="left-align icon tiny arrow-forward material-icons">arrow_forward</i></p>
                             
                         </Link>
