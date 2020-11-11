@@ -123,6 +123,15 @@ class Card extends React.Component {
     
 
     render() {
+        const theme = this.props.theme;
+        const {name,
+        mainBackgroundColor,
+        boardTitleColor,
+        boardDescColor,
+        cardColor,
+        iconColor,
+        textColor,
+        borderColor} = theme;
         let textList = undefined;
         let len = this.state.data.texts.length;
         window.onclick = function(event) {
@@ -145,15 +154,17 @@ class Card extends React.Component {
                 const dropdownID= "dropdown"+String(this.state.data.id)+String(text.id);
                 if(text.id!=0)
                     return(
-                        <li key={text.id} id ="drop-down-container" className="card-text-container row">
+                        <li style={{borderColor:borderColor}} key={text.id} className="card-text-container row">
                             
                             <form className="card-add-container" onSubmit={this.handleTextSubmit}>
                                 <div className="text-input">
 
                                     <input onChange={(e)=>{this.handleTextChange(e,text.id)}} type="text" placeholder={text.text} className="card-text" autoComplete="off" />
                                     <i onClick={()=>{this.showOptions(dropdownID)}} className="material-icons more-options">more_horiz</i>
-                                    <div id={dropdownID} className ="options-container">
-                                        <a className="options" onClick={()=>{this.delText(text.id)}}>Delete</a>
+                                    
+                                    
+                                    <div style={{backgroundColor:cardColor}} id={dropdownID} className ="options-container">
+                                        <a style={{color:iconColor}} className="options" onClick={()=>{this.delText(text.id)}}>Delete</a>
                                         <br/>
 
                                     </div>
@@ -176,10 +187,10 @@ class Card extends React.Component {
 
         
         return (
-            <div className="card">
+            <div style={{backgroundColor:cardColor}} className="card">
                 {/* card-title is a class in materialize-css therefore custom-card-title is used */}
                 <div className="card-icon-container"  onClick={()=>{this.delCard(this.state.data.id)}}>
-                        <i className="icon material-icons">close</i>
+                        <i style={{color:iconColor}} className="icon material-icons">close</i>
                 </div>
 
                 <form className="row card-add-container" onSubmit={this.handleTitleSubmit}>

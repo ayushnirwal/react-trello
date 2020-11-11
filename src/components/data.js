@@ -90,7 +90,37 @@ const initialData =()=>{
                     }
                 ]
             }
-        ]
+        ],
+        theme:{
+            selected:0,
+            availableThemes:[
+                {
+                    
+                    name:"fancy-name-1",
+                    mainBackgroundColor:"#370957",
+                    boardTitleColor:"#3abda3",
+                    boardDescColor:"#3abda3",
+                    cardColor:"#112c57",
+                    iconColor:"#b58126",
+                    textColor:"#3abda3",
+                    borderColor:"#777",
+
+                },
+                {
+                    
+                    name:"fancy-name-2",
+                    mainBackgroundColor:"#f3eac2",
+                    boardTitleColor:"#3abda3",
+                    boardDescColor:"#3abda3",
+                    cardColor:"#f5b461",
+                    iconColor:"#b58126",
+                    textColor:"#3abda3",
+                    borderColor:"#777",
+
+                },
+
+            ],
+        }
     }
 
 

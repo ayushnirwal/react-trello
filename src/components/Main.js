@@ -3,10 +3,10 @@ import Home from './Home'
 import Board from './Board'
 import initialData from './data'
 import {BrowserRouter as Router,Route,Switch} from 'react-router-dom'
-import ls from 'local-storage'
 import store from 'store'
 import 'materialize-css'
 
+const forceNewData = true;
 
 
 
@@ -15,9 +15,11 @@ class Main extends React.Component {
        data:undefined,
     } 
     componentDidMount(){
+        
         const cacheData = store.get('react-keep');
-        if (cacheData==undefined){
+        if (cacheData==undefined || forceNewData==true){
             const data = initialData();
+            
             this.setState({
                 data:data
             })
@@ -85,9 +87,10 @@ class Main extends React.Component {
     }
     delBoard=(id)=>{
         const newBoards=this.state.data.boards.filter((board)=>{return board.id!=id});
-        const data = {boards:newBoards}
+        const data = {boards:newBoards,theme:this.state.data.theme}
         this.setState({
-            data
+            data,
+            
         })
 
     }
@@ -116,8 +119,8 @@ class Main extends React.Component {
             }
             
         })
-        console.log(newBoards);
-        const data = {boards:newBoards}
+        
+        const data = {boards:newBoards,theme:this.state.data.theme}
         this.setState({
             data
         })
@@ -131,9 +134,16 @@ class Main extends React.Component {
                 return newBoard
             }
         })
-        const data = {boards:newBoards}
+        const data = {boards:newBoards,theme:this.state.data.theme}
         this.setState({
             data
+        })
+    }
+    changeTheme = (id)=>{
+        const coppyData = this.state.data;
+        coppyData.theme.selected = id
+        this.setState({
+            coppyData
         })
     }
     render() {
@@ -146,16 +156,20 @@ class Main extends React.Component {
                     desc:board.desc
                 })
             })
+
+            const mainBGColor = this.state.data.theme.availableThemes[this.state.data.theme.selected].mainBackgroundColor;
+            
+            document.body.style.backgroundColor = mainBGColor;
             return (
                 <Router>
                     <Switch>
 
                         <Route exact path="/" render={(props) => {
-                            return ( <Home updateBoardHome={(id,text,type)=>this.updateBoardHome(id,text,type)} delBoard ={(id)=>{this.delBoard(id)}} addBoard={()=>{this.addBoard()}} {...props} data={HomeData} /> )
+                            return ( <Home changeTheme={(id)=>{this.changeTheme(id)}} theme={this.state.data.theme} updateBoardHome={(id,text,type)=>this.updateBoardHome(id,text,type)} delBoard ={(id)=>{this.delBoard(id)}} addBoard={()=>{this.addBoard()}} {...props} data={HomeData} /> )
                         }} /> 
                         
                         <Route exact path="/board/:id" render={(props) => {
-                            return ( <Board updateBoardHome={(id,text,type)=>this.updateBoardHome(id,text,type)} updateBoard={(newBoard)=>this.updateBoard(newBoard)} {...props } data = {this.state.data.boards} /> )
+                            return ( <Board theme={this.state.data.theme} updateBoardHome={(id,text,type)=>this.updateBoardHome(id,text,type)} updateBoard={(newBoard)=>this.updateBoard(newBoard)} {...props } data = {this.state.data.boards} /> )
                         }} /> 
                     </Switch>
                 </Router>

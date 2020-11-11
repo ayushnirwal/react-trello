@@ -15,13 +15,13 @@ class Board extends React.Component {
     }
     handleTitleSubmit =(event)=>{
         event.preventDefault();
-        console.log(this.state);
+        
         this.props.updateBoardHome(this.state.formId,this.state.title,"updateTitle")
         
     }
     handleDescSubmit =(event)=>{
         event.preventDefault();
-        console.log(this.state);
+        
         this.props.updateBoardHome(this.state.formId,this.state.desc,"updateDesc")
         
     }
@@ -88,6 +88,15 @@ class Board extends React.Component {
     }
     
     render() {
+        const theme = this.props.theme.availableThemes[this.props.theme.selected];
+        const {name,
+            mainBackgroundColor,
+            boardTitleColor,
+            boardDescColor,
+            cardColor,
+            iconColor,
+            textColor,
+            borderColor} = theme;
         let cardList = undefined
         if(this.state.data == undefined){
             return(
@@ -95,18 +104,22 @@ class Board extends React.Component {
             )
         }
         else{
+            //seting placeholder stuffs' color by accesing DOM elements
+
+            
+
             cardList = this.state.data.cards.map((cardData)=>{
             
                 return(
                     <li key = {cardData.id} className="col s3">
-                        <Card delCard ={(id)=>{this.delCard(id)}} updateBoard={(Data)=>{ this.applyUpdate(Data) }}  data={cardData} />
+                        <Card theme = {theme} delCard ={(id)=>{this.delCard(id)}} updateBoard={(Data)=>{ this.applyUpdate(Data) }}  data={cardData} />
                     </li>
                 )
             })
             return (
                 <div>
                     <div className="row">
-                        <Link to="/"> <i class="back medium material-icons">arrow_back</i> </Link>
+                        <Link to="/"> <i style={{color:iconColor}} class="back medium material-icons">arrow_back</i> </Link>
                     </div>
 
                     <div className="card-list-container">
@@ -129,8 +142,8 @@ class Board extends React.Component {
 
                         <ul className="row ">
                             {cardList} 
-                            <div className="card valign-wrapper add-card-button col s3" onClick={()=>{ this.addCard() }}>
-                                <div className="add-card-text">Add Card</div>
+                            <div  style={{backgroundColor:cardColor}} className="card valign-wrapper add-card-button col s3" onClick={()=>{ this.addCard() }}>
+                                <div style={{color:iconColor}} className="add-card-text">Add Card</div>
                                 
                                 <i className="icon material-icons add-card-text ">add</i>
                             </div> 
